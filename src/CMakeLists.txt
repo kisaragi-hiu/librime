@@ -70,19 +70,19 @@ else()
 endif()
 
 if(BUILD_SHARED_LIBS)
-  add_library(rime ${rime_src})
-  target_link_libraries(rime ${rime_deps})
-  set_target_properties(rime PROPERTIES
+  add_library({{{lowername}}} ${rime_src})
+  target_link_libraries({{{lowername}}} ${rime_deps})
+  set_target_properties({{{lowername}}} PROPERTIES
     DEFINE_SYMBOL "RIME_EXPORTS"
     VERSION ${rime_version}
     SOVERSION ${rime_soversion})
   if(XCODE_VERSION)
-    set_target_properties(rime PROPERTIES INSTALL_NAME_DIR "@rpath")
+    set_target_properties({{{lowername}}} PROPERTIES INSTALL_NAME_DIR "@rpath")
   endif()
-  install(TARGETS rime DESTINATION ${CMAKE_INSTALL_FULL_LIBDIR})
+  install(TARGETS {{{lowername}}} DESTINATION ${CMAKE_INSTALL_FULL_LIBDIR})
 
   if(BUILD_SEPARATE_LIBS)
-    add_library(rime-dict ${rime_dict_module_src})
+    add_library({{{lowername}}}-dict ${rime_dict_module_src})
     target_link_libraries(rime-dict
       ${rime_dict_deps}
       ${rime_library})
@@ -139,8 +139,8 @@ if(BUILD_SHARED_LIBS)
     endif()
   endif()
 else()
-  add_library(rime-static STATIC ${rime_src})
-  target_link_libraries(rime-static ${rime_deps})
-  set_target_properties(rime-static PROPERTIES OUTPUT_NAME "rime" PREFIX "lib")
-  install(TARGETS rime-static DESTINATION ${CMAKE_INSTALL_FULL_LIBDIR})
+  add_library({{{lowername}}}-static STATIC ${rime_src})
+  target_link_libraries({{{lowername}}}-static ${rime_deps})
+  set_target_properties({{{lowername}}}-static PROPERTIES OUTPUT_NAME "{{{lowername}}}" PREFIX "lib")
+  install(TARGETS {{{lowername}}}-static DESTINATION ${CMAKE_INSTALL_FULL_LIBDIR})
 endif()
